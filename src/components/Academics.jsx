@@ -1,12 +1,13 @@
-import { Typography, Box, Button, TextField } from '@mui/material'
+import {  Box, Button, TextField } from '@mui/material'
 // eslint-disable-next-line no-unused-vars
 import React, { useContext, useRef, useState } from 'react'
 import { data } from './Context'
+import trash from '../assets/trash.svg'
 
 
 // eslint-disable-next-line react/prop-types
 const Academics = ({ HandlePage }) => {
-  const { form, HandleAdd, HandleDelete,HandleSave,HandleDeletecomplex } = useContext(data)
+  const { form, HandleAdd, HandleDelete, HandleSave, HandleDeletecomplex } = useContext(data)
   const [edit, setedit] = useState({
     skill: false,
     study: false
@@ -30,7 +31,7 @@ const Academics = ({ HandlePage }) => {
     skillref.current.value = '';
     setedit((prev) => ({
       ...prev,
-      skill: false, 
+      skill: false,
     }));
   }
 
@@ -51,18 +52,18 @@ const Academics = ({ HandlePage }) => {
     }
     HandleAdd('study', {
       name: studyref.current.name.value,
-      degree: studyref.current.degree.value ,
+      degree: studyref.current.degree.value,
       from: studyref.current.from.value,
       to: studyref.current.to.value
-  
+
     });
     studyref.current.name.value = null
-    studyref.current.degree.value =null
-    studyref.current.from.value=null
-    studyref.current.to.value=null
+    studyref.current.degree.value = null
+    studyref.current.from.value = null
+    studyref.current.to.value = null
     setedit((prev) => ({
       ...prev,
-      study: !prev.study, 
+      study: !prev.study,
     }));
   }
 
@@ -71,50 +72,95 @@ const Academics = ({ HandlePage }) => {
 
 
   return (
-    <Box sx={{ height: '95vh', width: { xs: '100%', md: '50vh' } }}>
-      <Typography variant='h5' textAlign={'center'}>Academics</Typography>
-
-      {!edit.skill && <Button onClick={() => HandleDisplay('skill')} >Add+</Button>}
-      {edit.skill && <>     <TextField inputRef={skillref} label='skill' />
-        <Button onClick={() => { HandleSkill() }}>Add</Button>
-
-        <Button onClick={() => { HandleDisplay('skill') }} >Cancel</Button></>}
-
-      {form.skill.length ===0 && <p>Lets See Your Skill</p>}
-      {form.skill.map((each,) => <div key={each}> <p >{each}</p>
-        <button onClick={() => HandleDelete('skill', each)}>x</button></div>)}
-      
-  
-      
-    { edit.study  && <Box sx={{ diasplay: 'flex', flexDirection: 'column' }}>
-        <TextField variant='outlined' inputRef={(el) => studyref.current.name = el} label='Institution Name' />
-        <TextField variant='outlined' inputRef={(el) => studyref.current.degree = el} label='Qualification' />
-        <Box sx={{ display: 'flex' }}>
-          <TextField variant='outlined' inputRef={(el) => studyref.current.from = el} label='From Date' />
-          <TextField variant='outlined' inputRef={(el) => studyref.current.to = el} label='To Date' />
-        </Box>-
-         <Button onClick={() => { HandleStudy();}}>Add</Button>
-         <Button onClick={() => { HandleDisplay('study') }} >Cancel</Button>        
-      </Box>
-     
-    }
-      
-      { !edit.study && <Button onClick={()=>HandleDisplay('study')}>Add Study</Button>}
-
-      { form.study.length!==0 ?form.study.map((each)=>{return(<div key={each.name}>
-        <p>{each.name}</p>
-        <p>{each.degree}</p>
-        <p>{each.from}</p>
-        <p>{each.to}</p>
-        <button onClick={()=>HandleDeletecomplex('study',each.name)}>X</button>
-      </div>)}) 
-        :
-        <p>Please enter your academic details</p>
+    <Box >
+      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', overflowY: 'auto' }}>
        
-    }
+
+
+        {/*    skills     */}
+        <h2 style={{margin:'0.4rem 0rem',}}>SKILLS</h2>
+        <Box sx={{ backgroundColor: 'white', boxShadow: ' rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px', display: 'flex', flexDirection: 'column', width: '80%', minHeight: '20vh', flexWrap: 'wrap', justifyContent: 'center', gap: '1rem', padding: '1rem', borderRadius: '15px' }}>
+           
+
+
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justidyContent: 'center', borderRadius: '15px' }}>
+            
+            {form.skill.length === 0 && <h3>Lets See Your Skill</h3>}
+            <Box sx={{}}>
+              <Box sx={{display:'flex',flexWrap:'wrap',justifyContent:'center',alignItems:'center'}}>
+              {form.skill.map((each,) => {
+                return (
+                  <Box key={each} sx={{mx:0.3, p:0.6,display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: ' #f2f2f2', px: '0.5rem',borderRadius: '20px' }}>
+                    <p >{each}</p>
+                    <button  style={{ backgroundColor: 'transparent', border: 'none', margin: 0 ,}}  onClick={() => HandleDelete('skill', each)}><img style={{marginTop:'3px',marginLeft:'8px'}} src={trash} /></button>
+                  </Box>)
+              })}
+              </Box>
+            </Box>
+          </Box>
+          {edit.skill && <>
+            <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
+              <TextField inputRef={skillref} label='skill' />
+              <Box>
+                <Button onClick={() => { HandleSkill() }}>Add</Button>
+                <Button onClick={() => { HandleDisplay('skill') }} >Cancel</Button>
+              </Box>
+            </Box>
+          </>
+          }
+
       
-      
-      <Button variant='contained' sx={{alignSelf:'flex-end'}} onClick={()=>{HandlePage('achieve');HandleSave()}}>Save</Button>
+          {!edit.skill && <Button onClick={() => HandleDisplay('skill')} >Add+</Button>}
+        </Box>
+
+
+        {/* acad */}
+        <h2 style={{margin:'0.4rem 0rem'}}>EDUCATION</h2>
+        <Box className="poem" sx={{ minHeight: '20vh', boxShadow: ' rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px', pt: '5rem', my: 2, overflowY: 'auto', borderRadius: '15px', backgroundColor: 'white', display: 'flex', flexDirection: 'column', width: '80%', alignItems: 'center', justifyContent: 'center', gap: '1rem', padding: '1rem' }}>
+
+          {form.study.length !== 0 ? form.study.map((each) => {
+            return (<Box key={each.name} sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column', backgroundColor: ' #f2f2f2', px: '0.5rem', py: 1, mx: 4, borderRadius: '20px' }}>
+              <Box sx={{ display: 'flex', justifyContent: 'space-between', rowGap: '1rem', columnGap: '5rem' }}>
+                <p >Institution:  {each.name}</p>
+                <p>Degree: {each.degree}</p>
+              </Box>
+              <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: '2rem' }}>
+                <p>From:  {each.from}</p>
+                <p>To: {each.to}</p>
+              </Box>
+              <Button sx={{ alignSelf: 'self-end', mt: 3 }} onClick={() => HandleDeletecomplex('study', each.name)}><img src={trash} /></Button>
+            </Box>)
+          })
+            :
+            <h3>Please Enter Your Academic Details</h3>
+
+          }
+
+
+
+
+          {edit.study && <Box sx={{ display: 'flex', flexDirection: 'column', pt: '1rem', justifyContent: 'space-between' }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', width: '20rem', gap: 1 }}>
+              <TextField variant='outlined' inputRef={(el) => studyref.current.name = el} label='Institution Name' />
+              <TextField variant='outlined' inputRef={(el) => studyref.current.degree = el} label='Qualification' />
+              <TextField variant='outlined' inputRef={(el) => studyref.current.from = el} label='From Date' />
+              <TextField variant='outlined' inputRef={(el) => studyref.current.to = el} label='To Date' />
+            </Box>
+            <Box sx={{ display: 'flex', justidyContent: 'center', alignItems: 'center' }}>
+              <Button onClick={() => { HandleStudy(); }}>Add</Button>
+              <Button onClick={() => { HandleDisplay('study') }} >Cancel</Button>
+            </Box>
+          </Box>
+
+          }
+
+          {!edit.study && <Button onClick={() => HandleDisplay('study')}>Add Study</Button>}
+
+
+
+        </Box>
+      </Box>
+      <Button variant='contained' sx={{ left: '89%', backgroundColor: '#262626' }} onClick={() => { HandlePage('achieve'); HandleSave() }}>Save</Button>
     </Box>
   )
 }

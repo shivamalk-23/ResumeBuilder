@@ -1,13 +1,9 @@
 /* eslint-disable react/prop-types */
-import { createContext, useState } from "react";
-// eslint-disable-next-line no-unused-vars
-import React from 'react'
-
 // eslint-disable-next-line react-refresh/only-export-components
+// eslint-disable-next-line no-unused-vars
+import { createContext, useState } from "react";
+
 export const data=createContext()
-
-
-
 const Context = ({children}) => {
     const [form ,setform ]=useState({
         names:'nsss',

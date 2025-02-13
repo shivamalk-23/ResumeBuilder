@@ -9,8 +9,8 @@ const PdfEnlcoser = () => {
     const { saved } = useContext(data)
     return (
 
-        <Box>
-            <PDFViewer>
+        <Box sx={{height:'100%',width:'100%',my:2}}>
+            <PDFViewer style={{ height:'95%',width:'98%',}}>
 
                 <MyDocument saved={saved} />
 

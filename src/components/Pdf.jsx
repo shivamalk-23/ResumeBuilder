@@ -8,7 +8,9 @@ import { Page, Text, View, Document, StyleSheet,Link,Line,Svg } from '@react-pdf
 const styles = StyleSheet.create({
     page: {
       
-      fontSize:'12px'
+      fontSize:'12px',
+      height:'90%',
+      width:'90%', 
   
     },
    
